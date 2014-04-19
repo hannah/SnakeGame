@@ -7,6 +7,7 @@ $(document).ready(function(){
   var cw = 10;
   var d;
   var food;
+  var score;
 
   var snake_array;
 
@@ -14,6 +15,7 @@ $(document).ready(function(){
     d = "right";
     create_snake();
     create_food();
+    score = 0;
     if(typeof game_loop != "undefined")clearInterval(game_loop);
     game_loop = setInterval(paint, 60);
   }
@@ -60,6 +62,7 @@ $(document).ready(function(){
     {
       var tail = {x: nx, y: ny};
       create_food();
+      score++;
     }
     else
     {
@@ -75,6 +78,8 @@ $(document).ready(function(){
       paint_cell(c.x, c.y);
     }
     paint_cell(food.x, food.y);
+    var score_text = "Score:" + score;
+    ctx.fillText(score_text,5,h-5);
   }
 
 
