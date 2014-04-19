@@ -50,7 +50,7 @@ $(document).ready(function(){
     else if(d == "up")ny--;
     else if(d == "down")ny++;
 
-    if(nx == -1||nx == w/cw||ny == -1||ny == h/cw)
+    if(nx == -1||nx == w/cw||ny == -1||ny == h/cw||check_collision(nx, ny, snake_array))
     {
       init();
       return;
@@ -85,6 +85,17 @@ $(document).ready(function(){
     ctx.strokeStyle = "black";
     ctx.strokeRect( x*cw, y*cw, cw, cw);
   }
+
+  function check_collision(x, y, array)
+  {
+    for(var i = 0; i < array.length; i++)
+    {
+      if(array[i].x == x && array[i].y == y)
+      return true;
+    }
+    return false;
+  }
+
 
   $(document).keydown(function(e){
     var key = e.which;
