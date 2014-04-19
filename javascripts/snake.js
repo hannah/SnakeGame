@@ -5,11 +5,7 @@ $(document).ready(function(){
   var h = $('#canvas').height();
 
   var cw = 10;
-
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0, 0, w, h);
-  ctx.strokeStyle = 'black';
-  ctx.strokeRect( 0, 0, w, h);
+  var d = "right";
 
   var snake_array;
 
@@ -25,8 +21,16 @@ $(document).ready(function(){
   function paint(){
     var nx = snake_array[0].x;
     var ny = snake_array[0].y;
-    nx++;
 
+    if(d == "right")nx++;
+    else if(d == "left")nx--;
+    else if(d == "up")ny--;
+    else if(d == "down")ny++;
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = 'black';
+    ctx.strokeRect( 0, 0, w, h);
 
     var tail = snake_array.pop();
     tail.x = nx;  //modify what this grabs later
@@ -36,12 +40,21 @@ $(document).ready(function(){
     for(var i=0;i<snake_array.length;i++)
     {
       var c = snake_array[i];
-      ctx.fillStyle = "green";
+      ctx.fillStyle = "#83F52C";
       ctx.fillRect(c.x*cw,c.y*cw,cw,cw);
       ctx.strokeStyle = "black";
       ctx.strokeRect(c.x*cw,c.y*cw, cw, cw);
     }
   }
+
+  $(document).keydown(function(e){
+    var key = e.which;
+    if(key == "37")d = "left";
+    else if(key =="38")d = "up";
+    else if(key == "39")d = "right";
+    else if(key =="40")d = "down";
+  });
+
   game_loop = setInterval(paint, 60);
 });
 
