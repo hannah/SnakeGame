@@ -4,6 +4,8 @@ $(document).ready(function(){
   var w = $('#canvas').width();
   var h = $('#canvas').height();
 
+  var cw = 10;
+
   ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = 'black';
@@ -21,16 +23,26 @@ $(document).ready(function(){
   }
 
   function paint(){
+    var nx = snake_array[0].x;
+    var ny = snake_array[0].y;
+    nx++;
+
+
+    var tail = snake_array.pop();
+    tail.x = nx;  //modify what this grabs later
+    snake_array.unshift(tail);
+
+
     for(var i=0;i<snake_array.length;i++)
     {
       var c = snake_array[i];
-      ctx.fillStyle = "blue";
-      ctx.fillRect(c.x*10,c.y*10,10,10);
+      ctx.fillStyle = "green";
+      ctx.fillRect(c.x*cw,c.y*cw,cw,cw);
       ctx.strokeStyle = "black";
-      ctx.strokeRect(c.x*10,c.y*10,10,10);
+      ctx.strokeRect(c.x*cw,c.y*cw, cw, cw);
     }
   }
-  paint();
+  game_loop = setInterval(paint, 60);
 });
 
 
