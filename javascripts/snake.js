@@ -6,12 +6,14 @@ $(document).ready(function(){
 
   var cw = 10;
   var d;
+  var food;
 
   var snake_array;
 
   function init(){
     d = "right";
     create_snake();
+    create_food();
     if(typeof game_loop != "undefined")clearInterval(game_loop);
     game_loop = setInterval(paint, 60);
   }
@@ -24,6 +26,13 @@ $(document).ready(function(){
     for(var i = length-1;i>=0;i--){
       snake_array.push({x:i,y:0});
     }
+  }
+
+  function create_food(){
+    food = {
+      x: Math.random()*(w-cw)/cw,
+      y: Math.random()*(h-cw)/cw,
+    };
   }
 
   function paint(){
@@ -55,11 +64,18 @@ $(document).ready(function(){
     for(var i=0;i<snake_array.length;i++)
     {
       var c = snake_array[i];
-      ctx.fillStyle = "#83F52C";
-      ctx.fillRect(c.x*cw,c.y*cw,cw,cw);
-      ctx.strokeStyle = "black";
-      ctx.strokeRect(c.x*cw,c.y*cw, cw, cw);
+      paint_cell(c.x, c.y);
     }
+    paint_cell(food.x, food.y);
+  }
+
+
+  function paint_cell(x,y)
+  {
+    ctx.fillStyle = "#83F52C";
+    ctx.fillRect( x*cw, y*cw, cw, cw);
+    ctx.strokeStyle = "black";
+    ctx.strokeRect( x*cw, y*cw, cw, cw);
   }
 
   $(document).keydown(function(e){
