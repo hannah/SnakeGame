@@ -30,8 +30,8 @@ $(document).ready(function(){
 
   function create_food(){
     food = {
-      x: Math.random()*(w-cw)/cw,
-      y: Math.random()*(h-cw)/cw,
+      x: Math.round(Math.random()*(w-cw)/cw),
+      y: Math.round(Math.random()*(h-cw)/cw),
     };
   }
 
@@ -56,10 +56,18 @@ $(document).ready(function(){
       return;
     }
 
-    var tail = snake_array.pop();
-    tail.x = nx; tail.y = ny;  //modify what this grabs later
-    snake_array.unshift(tail);
+    if(nx == food.x && ny == food.y)
+    {
+      var tail = {x: nx, y: ny};
+      create_food();
+    }
+    else
+    {
+      var tail = snake_array.pop();
+      tail.x = nx; tail.y = ny;
+    }
 
+    snake_array.unshift(tail);
 
     for(var i=0;i<snake_array.length;i++)
     {
